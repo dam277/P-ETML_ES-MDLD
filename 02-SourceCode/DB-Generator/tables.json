@@ -1,0 +1,191 @@
+[
+    {
+        "name": "Clients",
+        "fields": {
+            "ClientID": "INT PRIMARY KEY AUTO_INCREMENT",
+            "Nom": "VARCHAR(100)",
+            "Email": "VARCHAR(100)",
+            "Téléphone": "VARCHAR(20)",
+            "Adresse": "TEXT"
+        }
+    },
+    {
+        "name": "Employes",
+        "fields": {
+            "EmployeID": "INT PRIMARY KEY AUTO_INCREMENT",
+            "Nom": "VARCHAR(100)",
+            "Poste": "VARCHAR(50)",
+            "Email": "VARCHAR(100)"
+        }
+    },
+    {
+        "name": "Departements",
+        "fields": {
+            "DepartementID": "INT PRIMARY KEY AUTO_INCREMENT",
+            "Nom": "VARCHAR(100)",
+            "ResponsableID": "INT FOREIGN KEY REFERENCES Employes(EmployeID)"
+        }
+    },
+    {
+        "name": "Produits",
+        "fields": {
+            "ProduitID": "INT PRIMARY KEY AUTO_INCREMENT",
+            "Nom": "VARCHAR(100)",
+            "Prix": "DECIMAL(10,2)",
+            "Stock": "INT",
+            "CategorieID": "INT"
+        }
+    },
+    {
+        "name": "Categories",
+        "fields": {
+            "CategorieID": "INT PRIMARY KEY AUTO_INCREMENT",
+            "Nom": "VARCHAR(100)",
+            "Description": "TEXT"
+        }
+    },
+    {
+        "name": "Fournisseurs",
+        "fields": {
+            "FournisseurID": "INT PRIMARY KEY AUTO_INCREMENT",
+            "Nom": "VARCHAR(100)",
+            "Email": "VARCHAR(100)",
+            "Téléphone": "VARCHAR(20)"
+        }
+    },
+    {
+        "name": "Commandes",
+        "fields": {
+            "CommandeID": "INT PRIMARY KEY AUTO_INCREMENT",
+            "ClientID": "INT FOREIGN KEY REFERENCES Clients(ClientID)",
+            "DateCommande": "DATE",
+            "Statut": "VARCHAR(50)"
+        }
+    },
+    {
+        "name": "CommandeDetails",
+        "fields": {
+            "CommandeID": "INT FOREIGN KEY REFERENCES Commandes(CommandeID)",
+            "ProduitID": "INT FOREIGN KEY REFERENCES Produits(ProduitID)",
+            "Quantite": "INT",
+            "PrixUnitaire": "DECIMAL(10,2)",
+            "PRIMARY KEY": "(CommandeID, ProduitID)"
+        }
+    },
+    {
+        "name": "Paiements",
+        "fields": {
+            "PaiementID": "INT PRIMARY KEY AUTO_INCREMENT",
+            "CommandeID": "INT FOREIGN KEY REFERENCES Commandes(CommandeID)",
+            "Montant": "DECIMAL(10,2)",
+            "DatePaiement": "DATE",
+            "Méthode": "VARCHAR(50)"
+        }
+    },
+    {
+        "name": "MouvementsStock",
+        "fields": {
+            "MouvementID": "INT PRIMARY KEY AUTO_INCREMENT",
+            "ProduitID": "INT FOREIGN KEY REFERENCES Produits(ProduitID)",
+            "DateMouvement": "DATE",
+            "Quantite": "INT",
+            "Type": "VARCHAR(20)"
+        }
+    },
+    {
+        "name": "Projets",
+        "fields": {
+            "ProjetID": "INT PRIMARY KEY AUTO_INCREMENT",
+            "Nom": "VARCHAR(100)",
+            "Description": "TEXT",
+            "DateDebut": "DATE",
+            "DateFin": "DATE"
+        }
+    },
+    {
+        "name": "Taches",
+        "fields": {
+            "TacheID": "INT PRIMARY KEY AUTO_INCREMENT",
+            "ProjetID": "INT FOREIGN KEY REFERENCES Projets(ProjetID)",
+            "EmployeID": "INT FOREIGN KEY REFERENCES Employes(EmployeID)",
+            "Description": "TEXT",
+            "Statut": "VARCHAR(50)"
+        }
+    },
+    {
+        "name": "HeuresTravaillees",
+        "fields": {
+            "HeureID": "INT PRIMARY KEY AUTO_INCREMENT",
+            "TacheID": "INT FOREIGN KEY REFERENCES Taches(TacheID)",
+            "EmployeID": "INT FOREIGN KEY REFERENCES Employes(EmployeID)",
+            "DateJour": "DATE",
+            "Heures": "DECIMAL(4,2)"
+        }
+    },
+    {
+        "name": "Reunions",
+        "fields": {
+            "ReunionID": "INT PRIMARY KEY AUTO_INCREMENT",
+            "Sujet": "VARCHAR(200)",
+            "DateHeure": "DATETIME",
+            "OrganisateurID": "INT FOREIGN KEY REFERENCES Employes(EmployeID)"
+        }
+    },
+    {
+        "name": "Participants",
+        "fields": {
+            "ReunionID": "INT FOREIGN KEY REFERENCES Reunions(ReunionID)",
+            "EmployeID": "INT FOREIGN KEY REFERENCES Employes(EmployeID)",
+            "PRIMARY KEY": "(ReunionID, EmployeID)"
+        }
+    },
+    {
+        "name": "Livraisons",
+        "fields": {
+            "LivraisonID": "INT PRIMARY KEY AUTO_INCREMENT",
+            "CommandeID": "INT FOREIGN KEY REFERENCES Commandes(CommandeID)",
+            "DateLivraison": "DATE",
+            "Statut": "VARCHAR(50)"
+        }
+    },
+    {
+        "name": "Tickets",
+        "fields": {
+            "TicketID": "INT PRIMARY KEY AUTO_INCREMENT",
+            "ClientID": "INT FOREIGN KEY REFERENCES Clients(ClientID)",
+            "Sujet": "VARCHAR(200)",
+            "Statut": "VARCHAR(50)",
+            "DateCreation": "DATE"
+        }
+    },
+    {
+        "name": "MessagesSupport",
+        "fields": {
+            "MessageID": "INT PRIMARY KEY AUTO_INCREMENT",
+            "TicketID": "INT FOREIGN KEY REFERENCES Tickets(TicketID)",
+            "Auteur": "VARCHAR(100)",
+            "Message": "TEXT",
+            "DateMessage": "DATETIME"
+        }
+    },
+    {
+        "name": "HistoriquePrix",
+        "fields": {
+            "HistoriqueID": "INT PRIMARY KEY AUTO_INCREMENT",
+            "ProduitID": "INT FOREIGN KEY REFERENCES Produits(ProduitID)",
+            "AncienPrix": "DECIMAL(10,2)",
+            "NouveauPrix": "DECIMAL(10,2)",
+            "DateChangement": "DATE"
+        }
+    },
+    {
+        "name": "Promotions",
+        "fields": {
+            "PromotionID": "INT PRIMARY KEY AUTO_INCREMENT",
+            "ProduitID": "INT FOREIGN KEY REFERENCES Produits(ProduitID)",
+            "TauxReduction": "DECIMAL(5,2)",
+            "DateDebut": "DATE",
+            "DateFin": "DATE"
+        }
+    }
+]
