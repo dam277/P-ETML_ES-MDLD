@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS P-MDLD-MLD;
+DROP DATABASE IF EXISTS P_MDLD_MLD;
 
-CREATE DATABASE IF NOT EXISTS P-MDLD-MLD;
-USE P-MDLD-MLD;
+CREATE DATABASE IF NOT EXISTS P_MDLD_MLD;
+USE P_MDLD_MLD;
 # -----------------------------------------------------------------------------
 #       TABLE : GAME
 # -----------------------------------------------------------------------------
@@ -365,7 +365,7 @@ CREATE TABLE IF NOT EXISTS NEW
    ID_NEW BIGINT(7) NOT NULL  ,
    ID_PERSON BIGINT(7) NOT NULL  ,
    NEWTITLE VARCHAR(150) NOT NULL  ,
-   NEWCONTENT CHAR(10000) NOT NULL  ,
+   NEWCONTENT TEXT NOT NULL  ,
    NEWPUBLISHEDAT DATE NOT NULL  
    , PRIMARY KEY (ID_NEW) 
  ) 
